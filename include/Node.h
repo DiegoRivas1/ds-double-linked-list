@@ -23,8 +23,9 @@ class Node {
         [[nodiscard]] Node<T>* getPrev() const;
         void setPrev(Node<T>* prev);
 
-        friend std::ostream& operator<<(std::ostream& os, Node<T> node);
+        template<typename U>
+        friend std::ostream& operator<<(std::ostream& os, const Node<U>& node);
 
 };
-
+#include <../source/Node.tpp>
 #endif //DS_DOUBLE_LINKED_LIST_NODE_H

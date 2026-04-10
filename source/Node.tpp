@@ -1,5 +1,4 @@
-#include "Node.h"
-
+#pragma once
 template<typename T>
 Node<T>::Node(T data): data(data), next(nullptr), prev(nullptr) {}
 
@@ -37,4 +36,10 @@ Node<T>* Node<T>::getPrev() const {
 template<typename T>
 void Node<T>::setPrev(Node<T> *newPrev) {
     this->prev = newPrev;
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const Node<T>& node) {
+    os << node.data;
+    return os;
 }
