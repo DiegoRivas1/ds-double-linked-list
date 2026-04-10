@@ -34,3 +34,13 @@ TEST(NodeTest, PrintOperator) {
     os << n1;
     EXPECT_EQ(os.str(), "1");
 }
+
+TEST(NodeTest, TemplateConString) {
+    Node<std::string> node("Hola");
+    EXPECT_EQ(node.getData(), "Hola");
+}
+
+TEST(NodeTest, TemplataConDouble) {
+    Node<double> node(3.14);
+    EXPECT_EQ(node.getData(), 3.14);
+}
