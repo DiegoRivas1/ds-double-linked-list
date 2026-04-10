@@ -27,3 +27,10 @@ TEST(NodeTest, SetDataUpdatesValue) {
     n1.setData(1);
     EXPECT_EQ(n1.getData(), 1);
 }
+
+TEST(NodeTest, PrintOperator) {
+    Node<int> n1(1);
+    std::ostringstream os;
+    os << n1;
+    EXPECT_EQ(os.str(), "1");
+}

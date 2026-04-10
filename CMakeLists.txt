@@ -4,7 +4,7 @@ project(ds_double_linked_list)
 set(CMAKE_CXX_STANDARD 20)
 
 include_directories(include)
-
+include_directories(source)
 #Nuestero ejecutalke principal
 add_executable(ds_double_linked_list main.cpp)
 

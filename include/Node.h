@@ -27,5 +27,5 @@ class Node {
         friend std::ostream& operator<<(std::ostream& os, const Node<U>& node);
 
 };
-#include <../source/Node.tpp>
+#include <Node.tpp>
 #endif //DS_DOUBLE_LINKED_LIST_NODE_H
