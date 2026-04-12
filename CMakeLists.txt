@@ -8,7 +8,9 @@ include_directories(source)
 #Nuestero ejecutalke principal
 add_executable(ds_double_linked_list main.cpp
         include/DoubleLinkedList.h
-        source/DoubleLinkedList.tpp)
+        source/DoubleLinkedList.tpp
+        include/DoubleCircularList.h
+        source/DoubleCircularList.tpp)
 target_include_directories(ds_double_linked_list PRIVATE include)
 
 # TEST
@@ -31,3 +33,12 @@ add_executable(test_double_linked_list
         include/DoubleLinkedList.h)
 target_link_libraries(test_double_linked_list GTest::gtest GTest::gtest_main)
 add_test(NAME DoubleLinkedListTest COMMAND test_double_linked_list)
+
+###
+#Test DoubleCircularList
+add_executable(test_double_circular_list
+        test/DoubleCircularList/DoubleCircularListTest.cpp
+        test/DoubleCircularList/DoubleCircularListTest.cpp
+)
+target_link_libraries(test_double_circular_list GTest::gtest GTest::gtest_main)
+add_test(NAME DoubleCircularListTest COMMAND test_double_circular_list)

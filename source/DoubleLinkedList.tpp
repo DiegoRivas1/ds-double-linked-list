@@ -51,10 +51,10 @@ void DoubleLinkedList<T>::insert(T data, int position) {
         this -> head = newNode;
     }
     //Final O(1)
-    else if (position == length) {
-        tail -> setNext(newNode);
-        newNode -> setPrev(tail);
-        tail = newNode;
+    else if (position == this -> length) {
+        this -> tail -> setNext(newNode);
+        newNode -> setPrev(this -> tail);
+        this ->tail = newNode;
     }
 
     //Medio O(n)
@@ -102,7 +102,7 @@ void DoubleLinkedList<T>::remove(int position) {
         current -> getNext() -> setPrev(current -> getPrev());
     }
     delete toDelete;
-    length--;
+    --this -> length;
 }
 
 template<typename T>
