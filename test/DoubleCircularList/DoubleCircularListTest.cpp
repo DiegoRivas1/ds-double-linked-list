@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <sstream>
-#include "../include/DoubleCircularList.h"
+#include "DoubleCircularList.h"
 
 // Insert
 TEST(DoubleCircularListTest, InsertVacia) {

@@ -176,7 +176,7 @@ void DoubleLinkedList<T>::print(std::ostream &os) const {
         if (current->getNext() != nullptr) os << "<->";
         current = current->getNext();
     }
-    os << std::endl;
+    os << "\n";
 }
 
 template<typename T>

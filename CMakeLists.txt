@@ -10,7 +10,9 @@ add_executable(ds_double_linked_list main.cpp
         include/DoubleLinkedList.h
         source/DoubleLinkedList.tpp
         include/DoubleCircularList.h
-        source/DoubleCircularList.tpp)
+        source/DoubleCircularList.tpp
+        include/DoubleCircularListComposition.h
+        source/DoubleCircularListComposition.tpp)
 target_include_directories(ds_double_linked_list PRIVATE include)
 
 # TEST
@@ -31,6 +33,7 @@ add_test(NAME NodeTest COMMAND test_node)
 add_executable(test_double_linked_list
         test/DoubleLinkedList/DoubleLinkedListTest.cpp
         include/DoubleLinkedList.h)
+target_include_directories(test_double_linked_list PRIVATE include)
 target_link_libraries(test_double_linked_list GTest::gtest GTest::gtest_main)
 add_test(NAME DoubleLinkedListTest COMMAND test_double_linked_list)
 
@@ -38,7 +41,16 @@ add_test(NAME DoubleLinkedListTest COMMAND test_double_linked_list)
 #Test DoubleCircularList
 add_executable(test_double_circular_list
         test/DoubleCircularList/DoubleCircularListTest.cpp
-        test/DoubleCircularList/DoubleCircularListTest.cpp
 )
+target_include_directories(test_double_circular_list PRIVATE include)
 target_link_libraries(test_double_circular_list GTest::gtest GTest::gtest_main)
 add_test(NAME DoubleCircularListTest COMMAND test_double_circular_list)
+
+###
+#Test DoubleCircularListComposition
+add_executable(test_double_circular_list_composition
+        test/DoubleCircularListComposition/DoubleCircularListCompositionTest.cpp
+)
+target_include_directories(test_double_circular_list_composition PRIVATE include)
+target_link_libraries(test_double_circular_list_composition GTest::gtest GTest::gtest_main)
+add_test(NAME DoubleCircularListCompositionTest COMMAND test_double_circular_list_composition)

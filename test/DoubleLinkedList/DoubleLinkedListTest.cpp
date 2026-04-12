@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <sstream>
-#include "../include/DoubleLinkedList.h"
+#include "DoubleLinkedList.h"
 
 // Insert
 TEST(DoubleLinkedListTest, InsertVacia) {
