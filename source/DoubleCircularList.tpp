@@ -176,23 +176,51 @@ void DoubleCircularList<T>::print(std::ostream& os) const {
 template<typename T>
 std::string DoubleCircularList<T>::toDot() const {
     std::ostringstream os;
-    os << "digraph {\n";
+    os << "digraph DoubleCircularList {\n";
     os << "  rankdir=LR;\n";
-    os << "  node [shape=record];\n";
-    if (!isEmpty()) {
-        Node<T>* current = head;
-        for (int i = 0; i < length; i++) {
-            os << "  " << current->getData() << " [label=\"{<prev>|" << current->getData() << "|<next>}\"];\n";
-            current = current->getNext();
-        }
-        current = head;
-        for (int i = 0; i < length; i++) {
-            Node<T>* next = current->getNext();
-            os << "  " << current->getData() << ":next -> " << next->getData() << ":prev;\n";
-            os << "  " << next->getData() << ":prev -> " << current->getData() << ":next;\n";
-            current = next;
-        }
+    os << "  nodesep=0.1;\n";
+    os << "  ranksep=0.4;\n";
+    os << "  graph [pad=\"0.5\", bgcolor=\"white\"];\n";
+    os << "  node [shape=record, style=filled, fillcolor=\"#F8F9F9\", color=\"#2C3E50\", fontname=\"Courier New\", fontsize=10];\n";
+    os << "  edge [color=\"#2980B9\", penwidth=1.2, arrowsize=0.7];\n\n";
+
+    if (isEmpty()) {
+        os << "  empty [shape=plaintext, label=\"Lista Vacia\", fontcolor=\"#7F8C8D\"];\n";
+        os << "}\n";
+        return os.str();
     }
+
+    // Nodos
+    Node<T>* current = head;
+    for (int i = 0; i < length; i++) {
+        std::string style = "";
+        if (i == 0) style = "fillcolor=\"#EBF5FB\", color=\"#2980B9\", penwidth=2";
+        else if (i == length - 1) style = "fillcolor=\"#FDEDEC\", color=\"#C0392B\", penwidth=2";
+
+        os << "  node" << i << " [\n";
+        os << "    label=\"{<prev> • | " << current->getData() << " | <next> •}\",\n";
+        if (!style.empty()) os << "    " << style << "\n";
+        os << "  ];\n";
+        current = current->getNext();
+    }
+
+    // Conexiones next (incluyendo ciclo tail->head)
+    for (int i = 0; i < length; i++) {
+        int next = (i + 1) % length;
+        os << "  node" << i << ":next -> node" << next << ":w [tailclip=false];\n";
+    }
+    // Conexiones prev (incluyendo ciclo head->tail)
+    for (int i = 0; i < length; i++) {
+        int prev = (i - 1 + length) % length;
+        os << "  node" << i << ":prev -> node" << prev << ":e [tailclip=false, color=\"#E74C3C\"];\n";
+    }
+
+    // Punteros HEAD y TAIL
+    os << "  head_label [shape=plaintext, label=\"HEAD\", fontcolor=\"#2980B9\", fontname=\"Arial Bold\"];\n";
+    os << "  tail_label [shape=plaintext, label=\"TAIL\", fontcolor=\"#C0392B\", fontname=\"Arial Bold\"];\n";
+    os << "  head_label -> node0 [style=dotted, color=\"#2980B9\"];\n";
+    os << "  tail_label -> node" << length-1 << " [style=dotted, color=\"#C0392B\"];\n";
+
     os << "}\n";
     return os.str();
 }

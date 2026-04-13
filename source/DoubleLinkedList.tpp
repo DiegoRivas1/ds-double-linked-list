@@ -182,19 +182,56 @@ void DoubleLinkedList<T>::print(std::ostream &os) const {
 template<typename T>
 std::string DoubleLinkedList<T>::toDot() const {
     std::ostringstream os;
-    os << "digraph {\n";
-    os << " rankdir=LR;\n";
-    os << " node [shape=record];\n";
-    Node<T>* current = this -> head;
+    os << "digraph DoubleLinkedList {\n";
+    os << "  rankdir=LR;\n";
+    os << "  nodesep=0.1;\n";
+    os << "  ranksep=0.4;\n";
+    os << "  graph [pad=\"0.5\", bgcolor=\"white\"];\n";
+    os << "  node [shape=record, style=filled, fillcolor=\"#F8F9F9\", color=\"#2C3E50\", fontname=\"Courier New\", fontsize=10];\n";
+    os << "  edge [color=\"#2980B9\", penwidth=1.2, arrowsize=0.7];\n\n";
 
-    while (current != nullptr) {
-        os << " " << current -> getData() << "[label=\"{<prev>|" << current -> getData() << "|<next>}\"];\n";
-        if (current -> getNext() != nullptr) {
-            os << " " << current -> getData() << ":next -> " << current -> getNext() -> getData() << ":prev;\n";
-            os << "  " << current->getNext()->getData() << ":prev -> " << current->getData() << ":next;\n";
-        }
-        current = current -> getNext();
+    if (isEmpty()) {
+        os << "  empty [shape=plaintext, label=\"Lista Vacia\", fontcolor=\"#7F8C8D\"];\n";
+        os << "}\n";
+        return os.str();
     }
+
+    Node<T>* current = head;
+    int index = 0;
+    while (current != nullptr) {
+        std::string style = "";
+        if (current == head) style = "fillcolor=\"#EBF5FB\", color=\"#2980B9\", penwidth=2";
+        else if (current == tail) style = "fillcolor=\"#FDEDEC\", color=\"#C0392B\", penwidth=2";
+
+        os << "  node" << index << " [\n";
+        os << "    label=\"{<prev> • | " << current->getData() << " | <next> •}\",\n";
+        if (!style.empty()) os << "    " << style << "\n";
+        os << "  ];\n";
+        current = current->getNext();
+        index++;
+    }
+
+    // Conexiones next
+    for (int i = 0; i < length - 1; i++) {
+        os << "  node" << i << ":next -> node" << i+1 << ":w [tailclip=false];\n";
+    }
+    // Conexiones prev
+    for (int i = length - 1; i > 0; i--) {
+        os << "  node" << i << ":prev -> node" << i-1 << ":e [tailclip=false, color=\"#E74C3C\"];\n";
+    }
+
+    // NULL extremos
+    os << "  nil_head [shape=point, width=0.05];\n";
+    os << "  nil_tail [shape=point, width=0.05];\n";
+    os << "  node0:prev -> nil_head [arrowhead=none, style=dashed, color=\"#BDC3C7\"];\n";
+    os << "  node" << length-1 << ":next -> nil_tail [arrowhead=none, style=dashed, color=\"#BDC3C7\"];\n";
+
+    // Punteros HEAD y TAIL
+    os << "  head_label [shape=plaintext, label=\"HEAD\", fontcolor=\"#2980B9\", fontname=\"Arial Bold\"];\n";
+    os << "  tail_label [shape=plaintext, label=\"TAIL\", fontcolor=\"#C0392B\", fontname=\"Arial Bold\"];\n";
+    os << "  head_label -> node0 [style=dotted, color=\"#2980B9\"];\n";
+    os << "  tail_label -> node" << length-1 << " [style=dotted, color=\"#C0392B\"];\n";
+
     os << "}\n";
     return os.str();
 }

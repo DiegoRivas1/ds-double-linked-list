@@ -59,7 +59,16 @@ int DoubleCircularListComposition<T>::size() const {
 
 template<typename T>
 std::string DoubleCircularListComposition<T>::toDot() const {
-    return list.toDot();
+    if (list.isEmpty()) return "digraph DoubleCircularListComposition {}\n";
+    std::string dot = list.toDot();
+    dot.erase(dot.size() - 2); // quitar "}\n"
+    // agregar ciclo
+    std::ostringstream cycle;
+    cycle << "  node" << list.size()-1 << ":next -> node0:w [tailclip=false, color=\"#27AE60\", style=dashed];\n";
+    cycle << "  node0:prev -> node" << list.size()-1 << ":e [tailclip=false, color=\"#27AE60\", style=dashed];\n";
+    cycle << "}\n";
+    dot += cycle.str();
+    return dot;
 }
 
 template<typename U>
