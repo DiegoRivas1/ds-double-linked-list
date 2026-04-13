@@ -1,0 +1,67 @@
+digraph DoubleLinkedList {
+  rankdir=LR;
+  nodesep=0.1;
+  ranksep=0.4;
+  graph [pad="0.5", bgcolor="white"];
+  node [shape=record, style=filled, fillcolor="#F8F9F9", color="#2C3E50", fontname="Courier New", fontsize=10];
+  edge [color="#2980B9", penwidth=1.2, arrowsize=0.7];
+
+  node0 [
+    label="{<prev> • | 1 | <next> •}",
+    fillcolor="#EBF5FB", color="#2980B9", penwidth=2
+  ];
+  node1 [
+    label="{<prev> • | 2 | <next> •}",
+  ];
+  node2 [
+    label="{<prev> • | 3 | <next> •}",
+  ];
+  node3 [
+    label="{<prev> • | 4 | <next> •}",
+  ];
+  node4 [
+    label="{<prev> • | 5 | <next> •}",
+  ];
+  node5 [
+    label="{<prev> • | 6 | <next> •}",
+  ];
+  node6 [
+    label="{<prev> • | 7 | <next> •}",
+  ];
+  node7 [
+    label="{<prev> • | 8 | <next> •}",
+  ];
+  node8 [
+    label="{<prev> • | 9 | <next> •}",
+  ];
+  node9 [
+    label="{<prev> • | 10 | <next> •}",
+    fillcolor="#FDEDEC", color="#C0392B", penwidth=2
+  ];
+  node0:next -> node1:w [tailclip=false];
+  node1:next -> node2:w [tailclip=false];
+  node2:next -> node3:w [tailclip=false];
+  node3:next -> node4:w [tailclip=false];
+  node4:next -> node5:w [tailclip=false];
+  node5:next -> node6:w [tailclip=false];
+  node6:next -> node7:w [tailclip=false];
+  node7:next -> node8:w [tailclip=false];
+  node8:next -> node9:w [tailclip=false];
+  node9:prev -> node8:e [tailclip=false, color="#E74C3C"];
+  node8:prev -> node7:e [tailclip=false, color="#E74C3C"];
+  node7:prev -> node6:e [tailclip=false, color="#E74C3C"];
+  node6:prev -> node5:e [tailclip=false, color="#E74C3C"];
+  node5:prev -> node4:e [tailclip=false, color="#E74C3C"];
+  node4:prev -> node3:e [tailclip=false, color="#E74C3C"];
+  node3:prev -> node2:e [tailclip=false, color="#E74C3C"];
+  node2:prev -> node1:e [tailclip=false, color="#E74C3C"];
+  node1:prev -> node0:e [tailclip=false, color="#E74C3C"];
+  nil_head [shape=point, width=0.05];
+  nil_tail [shape=point, width=0.05];
+  node0:prev -> nil_head [arrowhead=none, style=dashed, color="#BDC3C7"];
+  node9:next -> nil_tail [arrowhead=none, style=dashed, color="#BDC3C7"];
+  head_label [shape=plaintext, label="HEAD", fontcolor="#2980B9", fontname="Arial Bold"];
+  tail_label [shape=plaintext, label="TAIL", fontcolor="#C0392B", fontname="Arial Bold"];
+  head_label -> node0 [style=dotted, color="#2980B9"];
+  tail_label -> node9 [style=dotted, color="#C0392B"];
+}
