@@ -1,4 +1,5 @@
 //#pragma once
+#pragma once
 #include <stdexcept>
 #include <sstream>
 #include <iostream>
